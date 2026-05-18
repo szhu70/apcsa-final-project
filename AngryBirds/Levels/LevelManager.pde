@@ -9,7 +9,6 @@ public class LevelManager{
 
     public void loadNextLevel(){
         currentLevel++;
-        
     }
 
     public void loadPreviousLevel(){
