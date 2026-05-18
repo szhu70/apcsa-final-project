@@ -9,15 +9,17 @@ public class LevelManager{
 
     public void loadNextLevel(){
         currentLevel++;
+        levels.get(currentLevel).load();
     }
 
     public void loadPreviousLevel(){
         currentLevel--;
+        levels.get(currentLevel).load();
     }
 
     public void checkWin(){
-
-//        loadNextLevel();
+        if (levels.get(currentLevel).pigsCount == 0;)
+            loadNextLevel();
     }
 
 }
