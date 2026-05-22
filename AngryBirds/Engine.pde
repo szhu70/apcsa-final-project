@@ -70,8 +70,8 @@ class Engine {
         FixtureDef fd = new FixtureDef();
         fd.shape = box;
         fd.density = 1;
-        fd.friction = 0.5;
-        fd.restitution = 0.2;
+        fd.friction = 0.4;
+        fd.restitution = 0.3;
         body.createFixture(fd);
 
         return body;
@@ -89,8 +89,8 @@ class Engine {
         FixtureDef fd = new FixtureDef();
         fd.shape = c;
         fd.density = 1;
-        fd.friction = 0.5;
-        fd.restitution = 0.2;
+        fd.friction = 0.1;
+        fd.restitution = 0.4;
         body.createFixture(fd);
 
         return body;
@@ -119,6 +119,22 @@ class Engine {
         stroke(0);
         rectMode(CENTER);
         rect(0, 0, w, h);
+    
+        popMatrix();
+    }
+    
+    
+    void displayCircle(Body body, float r) { // same note as displayBox()
+        Vec2 pos = physics.getBodyPixelCoord(body);
+        float angle = body.getAngle();
+    
+        pushMatrix();
+        translate(pos.x, pos.y);
+    
+        fill(100);
+        stroke(0);
+        ellipseMode(RADIUS);
+        ellipse(0, 0, r, r);
     
         popMatrix();
     }
