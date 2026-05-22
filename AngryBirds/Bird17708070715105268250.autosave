@@ -1,8 +1,0 @@
-class Bird extends Entity{
-  boolean isLaunched;
-    public Bird(){
-      super();
-      isLaunched = false;
-    }
-    
-}
