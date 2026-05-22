@@ -112,11 +112,20 @@ class Engine {
     
     void displayBox(Body body, float w, float h){ //should NOT be in the engine class, but we're testing and i need to see if collisions and stuff works
         Vec2 pos = physics.getBodyPixelCoord(body);
-    
+        float angle = body.getAngle();
+        
+        pushMatrix();
+        
+        translate(pos.x, pos.y);
+        rotate(-angle);
+        
         fill(100);
         stroke(0);
         rectMode(CENTER);
-        rect(pos.x, pos.y, w, h);
+        
+        rect(0, 0, w, h);
+        
+        popMatrix();
     
     }
     
