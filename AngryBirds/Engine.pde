@@ -20,7 +20,7 @@ class Engine {
 
         physics = new Box2DProcessing(parent);
         physics.createWorld();
-        physics.setGravity(0, -20);
+        physics.setGravity(0, -50);
         physics.listenForCollisions();
 
         // Remembers collisions forces previously
