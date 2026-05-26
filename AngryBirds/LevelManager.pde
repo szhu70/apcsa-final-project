@@ -1,6 +1,3 @@
-import org.jbox2d.common.*;
-import org.jbox2d.dynamics.*;
-//import org.jbox2d.collision.shapes.*;
 import org.jbox2d.dynamics.contacts.*;
 
 Engine engine;
@@ -9,18 +6,14 @@ Slingshot sling;
 ArrayList<Bird> birds;
 ArrayList<Obstacle> obstacles;
 ArrayList<Pig> pigs;
-Body ground;
-Body leftWall;
-Body rightWall;
-Body ceiling;
 
 void setup(){
   size(1200,800);
   engine = new Engine(this);
-  ground = engine.createGround(width/2,height-50,width,100);
-  leftWall = engine.createGround(0, height/2, 0.1, height);
-  rightWall = engine.createGround(width, height/2, -0.1, height);
-  ceiling = engine.createGround(width/2,-1,width,0.1);
+  engine.createGround(width/2,height-50,width,100);
+  engine.createGround(0, height/2, 0.1, height);
+  engine.createGround(width, height/2, -0.1, height);
+  engine.createGround(width/2,-1,width,0.1);
   
   birds = new ArrayList<Bird>();
   birds.add(new Bird(200,500,20,engine));
@@ -83,9 +76,9 @@ void mouseReleased(){
   sling.release(engine);
 }
 
-void beginContact(Contact cp){
-  Body a = cp.getFixtureA().getBody();
-  Body b = cp.getFixtureB().getBody();
+void beginContact(Contact c){
+  Body a = c.getFixtureA().getBody();
+  Body b = c.getFixtureB().getBody();
   
   Object objectA = a.getUserData();
   Object objectB = b.getUserData();
@@ -112,5 +105,4 @@ void beginContact(Contact cp){
   if(objectB instanceof Pig){
     ((Pig) objectB).takeDamage(impact, engine);
   }
-  println("hi");
 }
