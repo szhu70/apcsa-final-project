@@ -1,3 +1,8 @@
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.*;
+import org.jbox2d.collision.shapes.*;
+import org.jbox2d.dynamics.contacts.*;
+
 Engine engine;
 Bird bird;
 Slingshot sling;
@@ -33,7 +38,7 @@ void setup(){
 void draw(){
   background(200);
   engine.update();
-  
+
   fill(0,255,0);
   rectMode(CENTER);
   rect(width/2, height-50, width, 100); //floor
@@ -62,4 +67,36 @@ void mousePressed(){
 
 void mouseReleased(){
   sling.release(engine);
+}
+
+void beginContact(Contact cp){
+  Body a = cp.getFixtureA().getBody();
+  Body b = cp.getFixtureB().getBody();
+  
+  Object objectA = a.getUserData();
+  Object objectB = b.getUserData();
+
+  Vec2 va = a.getLinearVelocity();
+  Vec2 vb = b.getLinearVelocity();
+
+  float impact = va.sub(vb).length();
+
+  if(impact < 5)return;
+
+  if(objectA instanceof Obstacle){
+    ((Obstacle) objectA).takeDamage(impact, engine);
+  }
+  
+  if(objectB instanceof Obstacle){
+    ((Obstacle) objectB).takeDamage(impact, engine);
+  }
+
+  if(objectA instanceof Pig){
+    ((Pig) objectA).takeDamage(impact, engine);
+  }
+  
+  if(objectB instanceof Pig){
+    ((Pig) objectB).takeDamage(impact, engine);
+  }
+  println("hi");
 }

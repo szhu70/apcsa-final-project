@@ -5,15 +5,23 @@ class Bird extends Entity{
     body = physics.createCircle(x,y,radius,0.5);
     this.radius = radius;
     isLaunched = false;
+    body.setType(BodyType.STATIC);
+    body.setUserData(this);
   }
   
   public void launch(Vec2 force, Engine physics){
-    physics.applyForce(body,force);
     isLaunched = true;
+    body.setType(BodyType.DYNAMIC);
+    physics.applyForce(body,force);
   }
+  
+  public boolean isLaunched(){
+     return isLaunched; 
+  }
+  
   @Override
   void display(Engine physics){
-    physics.displayCircle(body,radius);
+    physics.displayCircle(body,radius); 
   }
   
 }

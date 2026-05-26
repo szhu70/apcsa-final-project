@@ -5,14 +5,18 @@ class Pig extends Entity{
     body = physics.createCircle(x,y,radius,0.5);
     this.radius = radius;
     this.health = health;
+    body.setUserData(this);
   }
   
-  public void takeDamage(float damage){ // damage should be calculated dynamically, the physics should be responsible for calculating these values. Looking back, health should also apply to obstacle.
+  public void takeDamage(float damage, Engine physics){ // damage should be calculated dynamically, the physics should be responsible for calculating these values. Looking back, health should also apply to obstacle.
     health -= damage;
+    if (health <= 0){
+      physics.destroyBody(body);
+    }
   }
   
   @Override
   void display(Engine physics){
-    physics.displayCircle(body, radius);
+    if (health > 0) physics.displayCircle(body, radius);
   }
 }

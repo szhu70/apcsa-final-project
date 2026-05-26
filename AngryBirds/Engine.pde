@@ -27,6 +27,8 @@ class Engine {
         physics.world.setWarmStarting(true);
         // Makes physics continuous (not frame by frame) through shady calculations
         physics.world.setContinuousPhysics(true);
+        
+        physics.listenForCollisions();
     }
 
     void update() {
@@ -71,7 +73,7 @@ class Engine {
 
         FixtureDef fd = new FixtureDef();
         fd.shape = box;
-        fd.density = 1;
+        fd.density = density;
         fd.friction = 0.4;
         fd.restitution = 0.3;
         body.createFixture(fd);
@@ -90,7 +92,7 @@ class Engine {
 
         FixtureDef fd = new FixtureDef();
         fd.shape = c;
-        fd.density = 1;
+        fd.density = density;
         fd.friction = 0.1;
         fd.restitution = 0.4;
         body.createFixture(fd);

@@ -12,11 +12,13 @@ class Slingshot{
     }
     
     public void startDrag(){
+      //if (currentBird.isLaunched()) return;
       dragging = true;
     }
     
     public void release(Engine physics){
      if (!dragging) return;
+     //if (currentBird.isLaunched()) return; // one  time
      Vec2 mouse = new Vec2(mouseX, mouseY);
      Vec2 force = slingshotPosition.sub(mouse);
      force.y = force.y * -1;
