@@ -1,6 +1,6 @@
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
-import org.jbox2d.collision.shapes.*;
+//import org.jbox2d.collision.shapes.*;
 import org.jbox2d.dynamics.contacts.*;
 
 Engine engine;
@@ -47,6 +47,20 @@ void draw(){
   sling.dragBird(engine);
   
   birds.get(0).display(engine);
+  
+  for(int i = obstacles.size()-1; i >= 0; i--){
+    if(obstacles.get(i).isDestroyed()){
+      engine.destroyBody(obstacles.get(i).getBody());
+      obstacles.remove(i);
+    }
+  }
+  
+  for(int i = pigs.size()-1; i >= 0; i--){
+    if(pigs.get(i).isDestroyed()){
+      engine.destroyBody(pigs.get(i).getBody());
+      pigs.remove(i);
+    }
+  }
   
   for (Obstacle o : obstacles){
     o.display(engine);
