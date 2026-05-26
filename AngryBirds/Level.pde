@@ -1,0 +1,61 @@
+class Level{
+    ArrayList<Bird> birds;
+    ArrayList<Pig> pigs;
+    ArrayList<Obstacle> obstacles;
+    Slingshot sling;
+
+    public Level(int id, Engine engine){
+        switch(id){
+          case 1:
+            birds = new ArrayList<Bird>();
+            birds.add(new Bird(200,500,20,engine));
+          
+            sling = new Slingshot(birds.get(0),200,500);
+
+
+            obstacles = new ArrayList<Obstacle>();
+            obstacles.add(new Obstacle(780,700,40,120,3,100,engine));
+            obstacles.add(new Obstacle(880,700,40,120,3,100,engine));
+
+            pigs = new ArrayList<Pig>();
+            pigs.add(new Pig(830,700,25,100,engine));
+        }
+    }
+
+    public void load(Engine engine){
+        background(200);
+        engine.update();
+
+        fill(0,255,0);
+        rectMode(CENTER);
+        rect(width/2, height-50, width, 100); //floor
+        
+        sling.display();
+        sling.dragBird(engine);
+        
+        birds.get(0).display(engine);
+        
+        for(int i = obstacles.size()-1; i >= 0; i--){
+            if(obstacles.get(i).isDestroyed()){
+            engine.destroyBody(obstacles.get(i).getBody());
+            obstacles.remove(i);
+            }
+        }
+        
+        for(int i = pigs.size()-1; i >= 0; i--){
+            if(pigs.get(i).isDestroyed()){
+            engine.destroyBody(pigs.get(i).getBody());
+            pigs.remove(i);
+            }
+        }
+        
+        for (Obstacle o : obstacles){
+            o.display(engine);
+        }
+        
+        for (Pig p : pigs) {
+            p.display(engine);
+        }
+    }
+
+}
