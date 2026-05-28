@@ -49,7 +49,7 @@ class Engine {
         FixtureDef fd = new FixtureDef();
         fd.shape = ps;
         fd.density = 1;
-        fd.friction = 0.5;
+        fd.friction = 100;
         // bounciness
         fd.restitution = 0.2;
 
@@ -69,6 +69,8 @@ class Engine {
         float H = physics.scalarPixelsToWorld(h / 2);
         box.setAsBox(W, H);
 
+        body.setLinearDamping(1.5);
+
         FixtureDef fd = new FixtureDef();
         fd.shape = box;
         fd.density = density;
@@ -85,14 +87,16 @@ class Engine {
         bd.position = physics.coordPixelsToWorld(x, y);
         Body body = physics.world.createBody(bd);
 
+//body.setAngularDamping(3.0);
+
         CircleShape c = new CircleShape();
         c.setRadius(physics.scalarPixelsToWorld(r));
 
         FixtureDef fd = new FixtureDef();
         fd.shape = c;
         fd.density = density;
-        fd.friction = 0.1;
-        fd.restitution = 0.4;
+        fd.friction = 1;
+        fd.restitution = 0.1;
         body.createFixture(fd);
 
         return body;

@@ -19,6 +19,10 @@ class Bird extends Entity{
      return isLaunched; 
   }
   
+  public boolean isDestroyed(){
+    return (isLaunched && abs(body.getLinearVelocity().x) < 0.1 && abs(body.getLinearVelocity().y) < 0.01);
+  }
+  
   @Override
   void display(Engine physics){
     physics.displayCircle(body,radius); 

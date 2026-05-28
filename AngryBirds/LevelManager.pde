@@ -25,14 +25,17 @@ void draw(){
 }
 
 void mousePressed(){
-  Vec2 pos = engine.physics.getBodyPixelCoord(levels.get(currentLevel).birds.get(0).getBody());
-  if(dist(mouseX,mouseY,pos.x,pos.y) < 30) {
-    levels.get(currentLevel).sling.startDrag();
+  if (!levels.get(currentLevel).ended()){
+    Vec2 pos = engine.physics.getBodyPixelCoord(levels.get(currentLevel).birds.get(0).getBody());
+    if(dist(mouseX,mouseY,pos.x,pos.y) < 30) {
+      levels.get(currentLevel).sling.startDrag();
+    }
   }
 }
 
 void mouseReleased(){
-  levels.get(currentLevel).sling.release(engine);
+  if (!levels.get(currentLevel).ended())
+    levels.get(currentLevel).sling.release(engine);
 }
 
 void keyPressed(){
