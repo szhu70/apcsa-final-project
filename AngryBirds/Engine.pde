@@ -12,8 +12,6 @@ class Engine {
     
     // the base class (where setup(), etc comes. needed for Box2D instantiation)
     PApplet parent;
-    
-    
 
     Engine(PApplet p) {
         parent = p;

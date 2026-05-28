@@ -56,6 +56,15 @@ class Level{
         for (Pig p : pigs) {
             p.display(engine);
         }
+        
+        if (pigs.size() == 0) {
+          fill(0,255,0);
+          rect(width/2, height/2, width * 4 / 5, height * 4 / 5);
+          fill(0,0,0);
+          textSize(40);
+          text("YOU DID IT", width/2, height/2);
+        }
+        
     }
 
 }

@@ -8,6 +8,7 @@ Engine engine;
 void setup(){
   size(1200,800);
   engine = new Engine(this);
+  // walls
   engine.createGround(width/2,height-50,width,100);
   engine.createGround(0, height/2, 0.1, height);
   engine.createGround(width, height/2, -0.1, height);
@@ -35,7 +36,9 @@ void mouseReleased(){
 }
 
 void keyPressed(){
-
+  if (key == 'r') setup();
+  if (key == 'n' && currentLevel < levels.size()) currentLevel++;
+  if (key == 'b' && currentLevel > 0) currentLevel--;
 }
 
 

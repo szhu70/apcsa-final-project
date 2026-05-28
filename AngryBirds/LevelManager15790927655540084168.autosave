@@ -1,15 +1,18 @@
 import org.jbox2d.dynamics.contacts.*;
 
-ArrayList<Level> levels; 
 Engine engine;
-
+Bird bird;
+Slingshot sling;
+ArrayList<Bird> birds;
+ArrayList<Obstacle> obstacles;
+ArrayList<Pig> pigs;
 
 void setup(){
   size(1200,800);
   engine = new Engine(this);
   engine.createGround(width/2,height-50,width,100);
   engine.createGround(0, height/2, 0.1, height);
-  engine.createGround(width, height/2, 0.1, height);
+  engine.createGround(width, height/2, -0.1, height);
   engine.createGround(width/2,-1,width,0.1);
   
   birds = new ArrayList<Bird>();
@@ -71,9 +74,6 @@ void mousePressed(){
 
 void mouseReleased(){
   sling.release(engine);
-}
-
-void keyPressed(){
 }
 
 void beginContact(Contact c){
