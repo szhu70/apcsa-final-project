@@ -134,10 +134,10 @@ class Engine {
     }
     
     
-    void displayCircle(Body body, float r) { // same note as displayBox()
+    void displayCircle(Body body, float r, color col) { // same note as displayBox()
         Vec2 pos = physics.getBodyPixelCoord(body);
     
-        fill(100);
+        fill(col);
         stroke(0);
         ellipseMode(RADIUS);
         ellipse(pos.x, pos.y, r, r);

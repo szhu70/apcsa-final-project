@@ -1,13 +1,13 @@
 import shiffman.box2d.*;
 
 class Slingshot{
-    private Bird currentBird;
+    private ArrayList<Bird> birds;
     private Vec2 slingshotPosition;
     private boolean dragging = false;
     private float maxStretch = 100;
     
-    public Slingshot(Bird bird, float x, float y){
-      currentBird = bird;
+    public Slingshot(ArrayList<Bird> birds, float x, float y){
+      this.birds = birds;
       slingshotPosition = new Vec2(x,y);
     }
     
@@ -22,7 +22,7 @@ class Slingshot{
      Vec2 mouse = new Vec2(mouseX, mouseY);
      Vec2 force = slingshotPosition.sub(mouse);
      force.y = force.y * -1;
-     currentBird.launch(force.mul(5), physics);
+     birds.get(0).launch(force.mul(birds.get(0).getRadius()), physics);
      dragging = false;
     }
     
@@ -36,8 +36,8 @@ class Slingshot{
         mouse = slingshotPosition.add(dir);
       }
     
-      currentBird.body.setTransform(physics.physics.coordPixelsToWorld(mouse.x, mouse.y), 0);
-      currentBird.body.setLinearVelocity(new Vec2(0,0));
+      birds.get(0).body.setTransform(physics.physics.coordPixelsToWorld(mouse.x, mouse.y), 0);
+      birds.get(0).body.setLinearVelocity(new Vec2(0,0));
     }
     
     void display(){

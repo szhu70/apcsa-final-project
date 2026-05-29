@@ -7,11 +7,11 @@ class Level{
     public Level(int id, Engine engine){
         ended = false;
         switch(id){
-          case 1:
+          case 0:
             birds = new ArrayList<Bird>();
             birds.add(new Bird(200,500,20,engine));
-            birds.add(new Bird(200,500,50,engine));
-            sling = new Slingshot(birds.get(0),200,500);
+            birds.add(new Bird(200,500,100,engine));
+            sling = new Slingshot(birds,200,500);
 
 
             obstacles = new ArrayList<Obstacle>();
@@ -20,19 +20,47 @@ class Level{
 
             pigs = new ArrayList<Pig>();
             pigs.add(new Pig(830,700,25,100,engine));
+            break;
+          case 1:
+            birds = new ArrayList<Bird>();
+            birds.add(new Bird(200,500,20,engine));
+            birds.add(new Bird(200,500,100,engine));
+            sling = new Slingshot(birds,200,500);
 
+
+            obstacles = new ArrayList<Obstacle>();
+            obstacles.add(new Obstacle(1000,700,40,120,3,100,engine));
+            obstacles.add(new Obstacle(1100,700,40,120,3,100,engine));
+
+            pigs = new ArrayList<Pig>();
+            pigs.add(new Pig(1150,700,25,100,engine));
+            break;
         }
     }
 
     public void load(Engine engine){
-      if (birds.size() == 0){
-          fill(255,0,0);
-          rect(width/2 - 100, height/2, width * 4 / 5, height * 4 / 5);
-          fill(0,0,0);
+          if (birds.size() != 0){
+             birds.get(0).getBody().getFixtureList().setSensor(false); 
+          }
+          
+      if (birds.size() == 0) { // lose
+          background(30, 0, 0);
+      
+          fill(180, 0, 0);
+          rectMode(CORNER);
+          rect(0, 0, 1600, 800);
+      
+          fill(255);
+          textAlign(CENTER, CENTER);
+      
+          textSize(90);
+          text("YOU LOST", 800, 300);
+      
           textSize(40);
-          text("restart cuz ur not good", width/2, height/2);
+          text("Press R to Restart", 800, 430);
+      
           ended = true;
-        } else {
+      } else {
         
         background(200);
         engine.update();
@@ -62,6 +90,9 @@ class Level{
         
         if (birds.get(0).isDestroyed()){
           birds.remove(0);
+          if (birds.size() != 0){
+             birds.get(0).getBody().getFixtureList().setSensor(false); 
+          }
         }
         
         for (Obstacle o : obstacles){
@@ -73,12 +104,23 @@ class Level{
         }
         
         
-        if (pigs.size() == 0) {
-          fill(0,255,0);
-          rect(width/2 - 50, height/2, width * 4 / 5, height * 4 / 5);
-          fill(0,0,0);
-          textSize(40);
-          text("YOU DID IT", width/2, height/2);
+        if (pigs.size() == 0) { // win
+            background(0, 40, 0);
+        
+            fill(0, 180, 80);
+            rectMode(CORNER);
+            rect(0, 0, 1600, 800);
+        
+            fill(255);
+            textAlign(CENTER, CENTER);
+        
+            textSize(90);
+            text("LEVEL COMPLETE!", 800, 300);
+        
+            textSize(40);
+            text("Press N for Next Level", 800, 430);
+        
+            ended = true;
         }
         }
     }

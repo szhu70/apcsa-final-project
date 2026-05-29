@@ -7,6 +7,7 @@ class Bird extends Entity{
     isLaunched = false;
     body.setType(BodyType.STATIC);
     body.setUserData(this);
+    body.getFixtureList().setSensor(true); 
   }
   
   public void launch(Vec2 force, Engine physics){
@@ -23,9 +24,14 @@ class Bird extends Entity{
     return (isLaunched && abs(body.getLinearVelocity().x) < 0.1 && abs(body.getLinearVelocity().y) < 0.01);
   }
   
+  public float getRadius(){
+     return radius; 
+  }
+  
   @Override
   void display(Engine physics){
-    physics.displayCircle(body,radius); 
+    
+    physics.displayCircle(body,radius,color(255,0,0)); 
   }
   
 }

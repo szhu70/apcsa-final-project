@@ -21,6 +21,6 @@ class Pig extends Entity{
   }
   @Override
   void display(Engine physics){
-    if (health > 0) physics.displayCircle(body, radius);
+    if (health > 0) physics.displayCircle(body, radius, color(0,255,0));
   }
 }

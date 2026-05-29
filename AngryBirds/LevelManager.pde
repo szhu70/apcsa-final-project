@@ -1,47 +1,63 @@
 import org.jbox2d.dynamics.contacts.*;
 
-ArrayList<Level> levels;
+Level level;
 int currentLevel;
+int maxLevel;
 Engine engine;
 
 
+
 void setup(){
-  size(1200,800);
+  size(1600,800);
+
+  currentLevel = 0;
+  maxLevel = 1;
+
+  loadLevel();
+}
+
+void loadLevel(){
+
   engine = new Engine(this);
+
   // walls
   engine.createGround(width/2,height-50,width,100);
   engine.createGround(0, height/2, 0.1, height);
   engine.createGround(width, height/2, -0.1, height);
   engine.createGround(width/2,-1,width,0.1);
-  
-  levels = new ArrayList<Level>();
-  levels.add(new Level(1, engine));
-  
-  currentLevel = 0;
+
+  level = new Level(currentLevel, engine);
 }
 
+
 void draw(){
-  levels.get(currentLevel).load(engine);
+  level.load(engine);
 }
 
 void mousePressed(){
-  if (!levels.get(currentLevel).ended()){
-    Vec2 pos = engine.physics.getBodyPixelCoord(levels.get(currentLevel).birds.get(0).getBody());
+  if (!level.ended()){
+    Vec2 pos = engine.physics.getBodyPixelCoord(level.birds.get(0).getBody());
     if(dist(mouseX,mouseY,pos.x,pos.y) < 30) {
-      levels.get(currentLevel).sling.startDrag();
+      level.sling.startDrag();
     }
   }
 }
 
 void mouseReleased(){
-  if (!levels.get(currentLevel).ended())
-    levels.get(currentLevel).sling.release(engine);
+  if (!level.ended())
+    level.sling.release(engine);
 }
 
 void keyPressed(){
   if (key == 'r') setup();
-  if (key == 'n' && currentLevel < levels.size()) currentLevel++;
-  if (key == 'b' && currentLevel > 0) currentLevel--;
+  if (key == 'n' && currentLevel < maxLevel) {
+    currentLevel++;
+    loadLevel();
+  }
+  if (key == 'b' && currentLevel > 0) {
+    currentLevel--;
+    loadLevel();
+  }
 }
 
 
